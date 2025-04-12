@@ -181,19 +181,23 @@ class UniversitySystem:
             self.result_text.insert(tk.END, "Please check your internet connection or try again later.")
 
     # Academic Assistant
+    
     def academic_assistant(self):
+        QNA = {
+            "deadline": ["The deadline is next Friday", "Check the course schedule"],
+            "material": ["Refer to chapter 3 in textbook", "Check LMS resources"],
+            "grades": ["Results will be published next week", "Contact professor directly"]
+        }
+        
         question = simpledialog.askstring("Academic Assistant", "Ask your academic question:")
         if question:
-            try:
-                # Get search results
-                search_results = list(search(question, num_results=3))
-                if search_results:
-                    answers = "\n\n".join([f"Result {i+1}: {result}" for i, result in enumerate(search_results)])
-                    messagebox.showinfo("Answer", f"Top results:\n{answers}")
-                else:
-                    messagebox.showinfo("Answer", "No results found online.")
-            except Exception as e:
-                messagebox.showerror("Error", f"Failed to search: {str(e)}")
+            for key in QNA:
+                if key in question.lower():
+                    messagebox.showinfo("Answer", random.choice(QNA[key]))
+                    return
+            messagebox.showinfo("Answer", "python is a high level programming language known for its simplicity and readability,used in web development and ai")
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
